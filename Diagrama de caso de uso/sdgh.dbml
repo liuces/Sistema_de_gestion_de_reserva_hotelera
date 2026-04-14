@@ -1,0 +1,61 @@
+Table HOTEL [headercolor: #175e7a] {
+	id_hotel integer [ pk, increment, not null ]
+	nombre_hotel varchar(20) [ not null ]
+	categoria_hotel varchar(20) [ not null ]
+	ciudad_hotel varchar(20) [ not null ]
+	direccion_hotel varchar(40) [ not null ]
+}
+
+Table CLIENTE [headercolor: #175e7a] {
+	id_cliente integer [ pk, increment, not null ]
+	rut_cliente varchar(12) [ not null ]
+	nombre_cliente varchar(20) [ not null ]
+	ap_pat_cliente varchar(20) [ not null ]
+	ap_mat_cliente varchar(20) [ not null ]
+	correo_cliente varchar(50) [ not null ]
+	fono_cliente varchar(15) [ not null ]
+}
+
+Table EMPLEADO [headercolor: #175e7a] {
+	id_empleado integer [ pk, increment, not null ]
+	rut_empleado varchar(12) [ not null ]
+	nombre_empleado varchar(20) [ not null ]
+	ap_pat_empleado varchar(20) [ not null ]
+	ap_mat_empleado varchar(20) [ not null ]
+	correo_empleado varchar(50) [ not null ]
+	fono_empleado varchar(15) [ not null ]
+	id_hotel integer [ not null ]
+}
+
+Table HABITACION [headercolor: #175e7a] {
+	id_habitacion integer [ pk, increment, not null ]
+	tipo_habitacion varchar(20) [ not null ]
+	capacidad_habitacion integer [ not null ]
+	precio_habitacion decimal(10,2) [ not null ]
+	id_hotel integer [ not null ]
+}
+
+Table RESERVA [headercolor: #175e7a] {
+	id_reserva integer [ pk, increment, not null ]
+	fecha_entrada date [ not null ]
+	fecha_salida date [ not null ]
+	cantidad_personas integer [ not null ]
+	id_cliente integer [ not null ]
+	id_habitacion integer [ not null ]
+}
+
+Ref fk_EMPLEADO_id_hotel_HOTEL {
+	EMPLEADO.id_hotel > HOTEL.id_hotel [ delete: cascade, update: no action ]
+}
+
+Ref fk_HABITACION_id_hotel_HOTEL {
+	HABITACION.id_hotel > HOTEL.id_hotel [ delete: cascade, update: no action ]
+}
+
+Ref fk_RESERVA_id_cliente_CLIENTE {
+	RESERVA.id_cliente > CLIENTE.id_cliente [ delete: cascade, update: no action ]
+}
+
+Ref fk_RESERVA_id_habitacion_HABITACION {
+	RESERVA.id_habitacion > HABITACION.id_habitacion [ delete: cascade, update: no action ]
+}
